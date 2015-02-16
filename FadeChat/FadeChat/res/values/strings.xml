@@ -4,5 +4,7 @@
     <string name="app_name">FadeChat</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="type_something_here">type_something_here</string>
+    <string name="send">send</string>
 
 </resources>
