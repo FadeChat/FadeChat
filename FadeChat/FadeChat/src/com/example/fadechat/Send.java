@@ -24,11 +24,11 @@ public class Send extends AsyncTask<String, Void, Void> {
 		try {
 
 			ConnectionFactory factory = new ConnectionFactory();
-			factory.setHost("52.0.7.146");
+			factory.setHost("");
 
 		
-			factory.setUsername("DM");
-			factory.setPassword("DM");
+			factory.setUsername("");
+			factory.setPassword("");
 			
 			factory.setPort(5672);
 			

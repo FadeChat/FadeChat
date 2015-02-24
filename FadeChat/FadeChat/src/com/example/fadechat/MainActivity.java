@@ -36,14 +36,14 @@ import android.widget.ListView;
 public class MainActivity extends Activity {
 	
 	
-	public static String HOST = "52.0.7.146";// RabbitMQ Server.
+	public static String HOST = "";// RabbitMQ Server.
 	
 	
-	public static String EXCHANGE = "logs";// exchange name
-	public static String QUEUE = "123123213";// queue name	
+	public static String EXCHANGE = "";// exchange name
+	public static String QUEUE = "";// queue name	
 	
 	
-	public final static String ClientId="mk";
+	public final static String ClientId="";
 	
 	private ListView msgListView;
 
