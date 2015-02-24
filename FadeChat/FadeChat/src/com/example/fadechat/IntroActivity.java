@@ -1,5 +1,8 @@
 package com.example.fadechat
 ;
+
+
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,11 +11,15 @@ import android.os.Handler;
  
 public class IntroActivity extends Activity {
     /** Called when the activity is first created. */
-    @Override
+
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro_fadechat);	//인트로 (로고)화면을 설
-         
+        
+ 
+        
         Handler handler = new Handler();		
         handler.postDelayed(new Runnable() {
             public void run() {
