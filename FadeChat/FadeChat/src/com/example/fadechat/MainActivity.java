@@ -72,10 +72,10 @@ public class MainActivity extends Activity {
 				String content = inputText.getText().toString();
 				if (!"".equals(content)) {
 					//타입은 sent 로 잡는다. (메세지 보내기)
-					Msg msg = new Msg(ServerInfo.EXCHANGE,"",ServerInfo.ClientId+"///"+content);
+					Msg msg = new Msg(ServerInfo.EXCHANGE,"",content);
 					msg.setType(Msg.TYPE_SENT);
 					
-				    new Send(ServerInfo.EXCHANGE,ServerInfo.Queue).execute(msg.content);
+				    new Send(ServerInfo.EXCHANGE,ServerInfo.Queue).execute(ServerInfo.ClientId+"///"+content);
 					
 					
 					msgList.add(msg);	//메세지 추가
