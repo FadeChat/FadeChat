@@ -7,9 +7,15 @@ public class Msg {
 	
 	public static final int TYPE_RECEIVED = 0;
 	public static final int TYPE_SENT=1;
-	public String content;
-	private int type;
 	
+
+	
+	public String content;
+	
+	private int type;
+	public static boolean fadeMode;
+	
+
 	public Msg(String routingKey, String content) {
 		this.routingKey = routingKey;
 		this.content = content;

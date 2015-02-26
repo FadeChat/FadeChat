@@ -13,21 +13,32 @@
         android:divider="#0000" >
     </ListView>
     
-    <LinearLayout 
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText 
+        android:layout_height="wrap_content" >
+
+        <EditText
             android:id="@+id/input_text"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="97.75"
             android:hint="@string/type_something_here"
-            android:maxLines="2"/>
-        <Button 
+            android:maxLines="2" />
+
+        <Button
             android:id="@+id/send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/send"/>
+            android:text="@string/send" />
+
+        <ToggleButton
+            android:id="@+id/toggleButton1"
+            android:layout_width="57dp"
+            android:layout_height="wrap_content"
+            android:text="ToggleButton"
+            android:textOff="off"
+            android:textOn="fade" />
+
     </LinearLayout>
     
 </LinearLayout>
