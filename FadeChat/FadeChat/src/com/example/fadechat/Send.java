@@ -9,13 +9,12 @@ import android.os.AsyncTask;
 public class Send extends AsyncTask<String, Void, Void> {
 
 	
-	private String exchange;
-	private String queue;
+
 	
 	public Send(String exchange, String queue ){
 		
-		this.exchange=exchange;
-		this.queue=queue;
+		ServerInfo.EXCHANGE=exchange;
+		ServerInfo.Queue=queue;
 	}
 	
 	@Override
@@ -24,27 +23,27 @@ public class Send extends AsyncTask<String, Void, Void> {
 		try {
 
 			ConnectionFactory factory = new ConnectionFactory();
-			factory.setHost("");
+			factory.setHost(ServerInfo.HOST);
 
 		
-			factory.setUsername("");
-			factory.setPassword("");
+			factory.setUsername(ServerInfo.UserName);
+			factory.setPassword(ServerInfo.PassWord);
 			
-			factory.setPort(5672);
+			factory.setPort(ServerInfo.Port);
 			
 			Connection connection = factory.newConnection();
 			
 			Channel channel = connection.createChannel();
 			
 			
-			channel.exchangeDeclare(exchange, "fanout", true);
-			channel.queueDeclare(queue, false, false, false, null);
+			channel.exchangeDeclare(ServerInfo.EXCHANGE, "fanout", true);
+			channel.queueDeclare(ServerInfo.Queue, false, false, false, null);
 			
 			String tmp = "";
 			for (int i = 0; i < Message.length; i++)
 				tmp += Message[i];
 
-			channel.basicPublish(exchange,queue, null,
+			channel.basicPublish(ServerInfo.EXCHANGE,ServerInfo.Queue, null,
 					tmp.getBytes());
 
 			

@@ -1,7 +1,7 @@
 package com.example.fadechat;
 
 
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,21 +12,15 @@ import java.util.List;
 
 
 
-import java.util.Random;
+import java.util.StringTokenizer;
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
+import com.example.fadechat.Consumer.OnReceiveMessageHandler;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnKeyListener;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -36,14 +30,7 @@ import android.widget.ListView;
 public class MainActivity extends Activity {
 	
 	
-	public static String HOST = "";// RabbitMQ Server.
 	
-	
-	public static String EXCHANGE = "";// exchange name
-	public static String QUEUE = "";// queue name	
-	
-	
-	public final static String ClientId="";
 	
 	private ListView msgListView;
 
@@ -85,10 +72,10 @@ public class MainActivity extends Activity {
 				String content = inputText.getText().toString();
 				if (!"".equals(content)) {
 					//타입은 sent 로 잡는다. (메세지 보내기)
-					Msg msg = new Msg(EXCHANGE,"",ClientId+"///Minkyu///"+content);
+					Msg msg = new Msg(ServerInfo.EXCHANGE,"",ServerInfo.ClientId+"///"+content);
 					msg.setType(Msg.TYPE_SENT);
 					
-				    new Send(EXCHANGE,QUEUE).execute(content);
+				    new Send(ServerInfo.EXCHANGE,ServerInfo.Queue).execute(msg.content);
 					
 					
 					msgList.add(msg);	//메세지 추가
@@ -98,6 +85,46 @@ public class MainActivity extends Activity {
 				}
 			}
 		});
+		
+		
+		
+		// register for messages
+		Consumer.consumer.setOnReceiveMessageHandler(new OnReceiveMessageHandler() {
+			
+			@Override
+			public void onReceiveMessage(byte[] message) {
+				// TODO Auto-generated method stub
+				
+				String text = "";
+				try {
+					text = new String(message, "UTF8");
+					
+					StringTokenizer tokenizer = new StringTokenizer(text, "///"); 
+				
+					String id=tokenizer.nextToken();
+					
+					if(!id.equals(ServerInfo.ClientId))
+					{
+					
+					Msg msg = new Msg(ServerInfo.EXCHANGE,"",tokenizer.nextToken());
+					msg.setType(Msg.TYPE_RECEIVED);
+					msgList.add(msg);	//메세지 추가
+					adapter.notifyDataSetChanged();
+					msgListView.setSelection(msgList.size());
+					}
+					
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
+		new Recv().execute();
+		
+		
+		
+		
 	/*
 		inputText.setOnKeyListener(new OnKeyListener() {
 
@@ -145,6 +172,8 @@ public class MainActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	
 	
 	
 	
