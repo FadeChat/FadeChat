@@ -24,8 +24,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ToggleButton;
 
 public class MainActivity extends Activity {
 	
@@ -43,6 +45,7 @@ public class MainActivity extends Activity {
 	private List<Msg> msgList = new ArrayList<Msg>();	//어레이리스트로 생성한 메세지 리스
 	
 
+	ToggleButton toggle;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,28 @@ public class MainActivity extends Activity {
 		msgListView = (ListView) findViewById(R.id.msg_list_view);
 		msgListView.setAdapter(adapter);
 		
+
+		
+		toggle = (ToggleButton) findViewById(R.id.toggleButton1);
+       /* toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      
+        	Msg a = new Msg();
+                 @Override
+                 public void onCheckedChanged(CompoundButton buttonView,
+                                  boolean isChecked) {
+
+                         if (isChecked) {
+                        	 a.setTimer(10);
+                        	 
+                                  
+                         }
+                         else
+                        	 a.setTimer(0);
+                 }
+        });
+        */
+	
+		
 		
 		send.setOnClickListener(new OnClickListener() {
 			
@@ -72,11 +97,26 @@ public class MainActivity extends Activity {
 				String content = inputText.getText().toString();
 				if (!"".equals(content)) {
 					//타입은 sent 로 잡는다. (메세지 보내기)
+					
+					int timer=0;
+					
+					
 					Msg msg = new Msg(ServerInfo.EXCHANGE,"",content);
 					msg.setType(Msg.TYPE_SENT);
 					
-				    new Send(ServerInfo.EXCHANGE,ServerInfo.Queue).execute(ServerInfo.ClientId+"///"+content);
+					Thread remover=new MsgRemover(msgList);
+
+					if(toggle.isChecked())
+						remover.start();
+
 					
+					
+					msg.setTimer(timer);
+					
+
+				    new Send(ServerInfo.EXCHANGE,ServerInfo.Queue).execute(ServerInfo.ClientId+"///"+content+"///"+timer);
+					
+				   
 					
 					msgList.add(msg);	//메세지 추가
 					adapter.notifyDataSetChanged();
@@ -85,8 +125,6 @@ public class MainActivity extends Activity {
 				}
 			}
 		});
-		
-		
 		
 		// register for messages
 		Consumer.consumer.setOnReceiveMessageHandler(new OnReceiveMessageHandler() {
@@ -102,12 +140,15 @@ public class MainActivity extends Activity {
 					StringTokenizer tokenizer = new StringTokenizer(text, "///"); 
 				
 					String id=tokenizer.nextToken();
+					String word=tokenizer.nextToken();
+					int timer= Integer.parseInt(tokenizer.nextToken());
 					
 					if(!id.equals(ServerInfo.ClientId))
 					{
 					
 					Msg msg = new Msg(ServerInfo.EXCHANGE,"",tokenizer.nextToken());
 					msg.setType(Msg.TYPE_RECEIVED);
+					msg.setTimer(timer);
 					msgList.add(msg);	//메세지 추가
 					adapter.notifyDataSetChanged();
 					msgListView.setSelection(msgList.size());
@@ -121,6 +162,9 @@ public class MainActivity extends Activity {
 		});
 		
 		new Recv().execute();
+		
+		
+		
 		
 		
 		
@@ -179,3 +223,4 @@ public class MainActivity extends Activity {
 	
 	
 }
+

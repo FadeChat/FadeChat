@@ -10,11 +10,22 @@ public class Msg {
 	
 
 	
-	public String content;
+	private String content;
 	
 	private int type;
-	public static boolean fadeMode;
+	private int timer;
 	
+	public Msg(){
+		this.timer =0;
+	}
+
+	public int getTimer() {
+		return timer;
+	}
+
+	public void setTimer(int timer) {
+		this.timer = timer;
+	}
 
 	public Msg(String routingKey, String content) {
 		this.routingKey = routingKey;
