@@ -44,6 +44,7 @@ public class MainActivity extends Activity {
 
 	private List<Msg> msgList = new ArrayList<Msg>();	//어레이리스트로 생성한 메세지 리스
 	
+	
 
 	ToggleButton toggle;
 	
@@ -57,7 +58,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		adapter = new MsgAdapter(MainActivity.this, R.layout.msg_item, msgList);
 		
+		Recv receiver=new Recv();
 		
+		receiver.execute();
 
 		
 		inputText = (EditText) findViewById(R.id.input_text);
@@ -86,7 +89,7 @@ public class MainActivity extends Activity {
         });
         */
 	
-		
+
 		
 		send.setOnClickListener(new OnClickListener() {
 			
@@ -146,7 +149,7 @@ public class MainActivity extends Activity {
 					if(!id.equals(ServerInfo.ClientId))
 					{
 					
-					Msg msg = new Msg(ServerInfo.EXCHANGE,"",tokenizer.nextToken());
+					Msg msg = new Msg(ServerInfo.EXCHANGE,"",word);
 					msg.setType(Msg.TYPE_RECEIVED);
 					msg.setTimer(timer);
 					msgList.add(msg);	//메세지 추가

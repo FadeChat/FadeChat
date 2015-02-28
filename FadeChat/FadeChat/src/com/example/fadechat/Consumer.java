@@ -15,6 +15,12 @@ public class Consumer {
 	
 	private Connection mConnection;
 	private Channel mChannel;
+	
+
+	public Channel getChannel() {
+		return mChannel;
+	}
+
 	private QueueingConsumer mConsumer;
 	private boolean running;
 	
@@ -123,7 +129,7 @@ public class Consumer {
 	                  try {
 	                      delivery = mConsumer.nextDelivery();
 	                      mLastMessage = delivery.getBody();
-	                      Log.v("mLastMessage ", mLastMessage.toString());
+	                
 	                      mMessageHandler.post(mReturnMessage);
 	                     /* try {
 	                          mChannel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
@@ -136,6 +142,7 @@ public class Consumer {
 	               }
 	           }
 	      };
+	      
 	      thread.start();
 
 	  }
