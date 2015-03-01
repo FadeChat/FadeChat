@@ -3,7 +3,7 @@ package com.example.fadechat;
 import java.io.IOException;
 
 import android.os.Handler;
-import android.util.Log;
+
 
 
 import com.rabbitmq.client.Channel;

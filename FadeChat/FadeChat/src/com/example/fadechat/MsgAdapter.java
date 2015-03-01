@@ -57,7 +57,7 @@ public class MsgAdapter extends ArrayAdapter<Msg> {
 			
 				viewHolder.rightLayout.setVisibility(View.VISIBLE);
 				viewHolder.leftLayout.setVisibility(View.GONE);
-				viewHolder.rightMsg.setText(msg.getContent());
+				viewHolder.rightMsg.setText(msg.getContent()+" 남은시간 :"+msg.getTimer());
 			
 		}
 		

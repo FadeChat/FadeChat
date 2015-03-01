@@ -7,14 +7,10 @@ import java.util.List;
 
 
 
-
-
-
-
-
 import java.util.StringTokenizer;
 
 import com.example.fadechat.Consumer.OnReceiveMessageHandler;
+import com.example.fadechat.MsgRemover.OnRemoveMessageHandler;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -24,26 +20,24 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ToggleButton;
 
 public class MainActivity extends Activity {
 	
-	
-	
-	
+
 	private ListView msgListView;
 
 	private EditText inputText;		//메세지를 입력하는 텍스트
 
 	private Button send;		//send 버튼 
 	
-	private MsgAdapter adapter;	//메세지 받는 변
+	private MsgAdapter adapter;	//메세지 받는 변수
 
-	private List<Msg> msgList = new ArrayList<Msg>();	//어레이리스트로 생성한 메세지 리스
+	public static List<Msg> msgList = new ArrayList<Msg>();	//어레이리스트로 생성한 메세지 리스트
 	
+	public static int not_fadeNumber=0;
 	
 
 	ToggleButton toggle;
@@ -61,7 +55,46 @@ public class MainActivity extends Activity {
 		Recv receiver=new Recv();
 		
 		receiver.execute();
+		
+	
+		
+		MsgRemover remover=new MsgRemover();
+		
+		remover.setOnRemoveMessageHandler(new OnRemoveMessageHandler() {
+			
+			
+			@Override
+			public void OnRemoveMessage(List<Msg> rMsgs) {
+				// TODO Auto-generated method stub
+				
+				for(Msg msg:rMsgs){
+					
+				      msgList.remove(msg);
+				
+					adapter.notifyDataSetChanged();
+				    msgListView.setSelection(msgList.size()); 
+				
+				}
+				
+			
+			}
 
+			@Override
+			public void OnRemoveTimer() {
+				// TODO Auto-generated method stub
+				adapter.notifyDataSetChanged();
+			    msgListView.setSelection(msgList.size()); 
+			}
+			
+			
+			
+		});
+		
+	
+		
+		
+		remover.start();
+		
 		
 		inputText = (EditText) findViewById(R.id.input_text);
 		send = (Button) findViewById(R.id.send);
@@ -71,23 +104,7 @@ public class MainActivity extends Activity {
 
 		
 		toggle = (ToggleButton) findViewById(R.id.toggleButton1);
-       /* toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       
-        	Msg a = new Msg();
-                 @Override
-                 public void onCheckedChanged(CompoundButton buttonView,
-                                  boolean isChecked) {
-
-                         if (isChecked) {
-                        	 a.setTimer(10);
-                        	 
-                                  
-                         }
-                         else
-                        	 a.setTimer(0);
-                 }
-        });
-        */
 	
 
 		
@@ -107,10 +124,10 @@ public class MainActivity extends Activity {
 					Msg msg = new Msg(ServerInfo.EXCHANGE,"",content);
 					msg.setType(Msg.TYPE_SENT);
 					
-					Thread remover=new MsgRemover(msgList);
+					
 
 					if(toggle.isChecked())
-						remover.start();
+						timer=5;
 
 					
 					
@@ -119,6 +136,7 @@ public class MainActivity extends Activity {
 
 				    new Send(ServerInfo.EXCHANGE,ServerInfo.Queue).execute(ServerInfo.ClientId+"///"+content+"///"+timer);
 					
+				   
 				   
 					
 					msgList.add(msg);	//메세지 추가
@@ -146,12 +164,21 @@ public class MainActivity extends Activity {
 					String word=tokenizer.nextToken();
 					int timer= Integer.parseInt(tokenizer.nextToken());
 					
+					
+					
+					 if(timer==0)
+			           not_fadeNumber++;
+					  
+					 
 					if(!id.equals(ServerInfo.ClientId))
 					{
 					
 					Msg msg = new Msg(ServerInfo.EXCHANGE,"",word);
 					msg.setType(Msg.TYPE_RECEIVED);
 					msg.setTimer(timer);
+					
+					
+					
 					msgList.add(msg);	//메세지 추가
 					adapter.notifyDataSetChanged();
 					msgListView.setSelection(msgList.size());
@@ -163,8 +190,6 @@ public class MainActivity extends Activity {
 				
 			}
 		});
-		
-		new Recv().execute();
 		
 		
 		
