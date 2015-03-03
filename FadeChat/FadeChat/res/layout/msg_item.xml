@@ -20,6 +20,51 @@
             android:layout_margin="10dp"
             android:textColor="#fff" />
     </LinearLayout>
+    
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/left_fade_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/message_left_fade"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/left_fade_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/timer_left"
+            android:layout_width="37dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/left_fade_layout"
+            android:layout_toRightOf="@+id/left_fade_layout"
+            android:background="@drawable/timer" >
+
+            <TextView
+                android:id="@+id/time_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:textColor="#fff" />
+        </LinearLayout>
+
+    </RelativeLayout>
+    
+    
+    
+    
+    
 
     <LinearLayout
         android:id="@+id/right_layout"
@@ -60,7 +105,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/timer"
+            android:id="@+id/timer_right"
             android:layout_width="37dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -68,8 +113,8 @@
             android:background="@drawable/timer" >
 
             <TextView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
+                android:id="@+id/time_right"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"

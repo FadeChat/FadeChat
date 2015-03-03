@@ -69,9 +69,9 @@ public class MsgRemover {
 			
 			
 			if(MainActivity.not_fadeNumber==arr.size())
-				{ startNumber=MainActivity.not_fadeNumber;
+				startNumber=MainActivity.not_fadeNumber;
 				  
-				}
+				
 			
 			for(int cnt =startNumber; cnt < arr.size() ; cnt++) {
 				

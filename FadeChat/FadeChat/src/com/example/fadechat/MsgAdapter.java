@@ -5,6 +5,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,13 +41,21 @@ public class MsgAdapter extends ArrayAdapter<Msg> {
 			//왼쪽 오른쪽의 레이아웃과 Msg내용을 담는 textview를 설정
 			viewHolder.leftLayout = (LinearLayout) view.findViewById(R.id.left_layout);
 			viewHolder.rightLayout = (LinearLayout) view.findViewById(R.id.right_layout);
+
 			viewHolder.rightFadeLayout= (LinearLayout) view.findViewById(R.id.right_fade_layout);
-			viewHolder.timer= (LinearLayout) view.findViewById(R.id.timer);
+			viewHolder.leftFadeLayout=(LinearLayout) view.findViewById(R.id.left_fade_layout);
+
+			viewHolder.timer_right= (LinearLayout) view.findViewById(R.id.timer_right);
+			viewHolder.timer_left= (LinearLayout) view.findViewById(R.id.timer_left);
 			
 			viewHolder.leftMsg = (TextView) view.findViewById(R.id.left_msg);
 			viewHolder.rightMsg = (TextView) view.findViewById(R.id.right_msg);
+
+			viewHolder.leftFadeMsg= (TextView) view.findViewById(R.id.left_fade_msg);
 			viewHolder.rightFadeMsg= (TextView) view.findViewById(R.id.right_fade_msg);
-			viewHolder.timeMsg= (TextView) view.findViewById(R.id.time);
+
+			viewHolder.timeMsg_right= (TextView) view.findViewById(R.id.time_right);
+			viewHolder.timeMsg_left= (TextView) view.findViewById(R.id.time_left);
 			
 			
 			view.setTag(viewHolder);
@@ -57,10 +66,52 @@ public class MsgAdapter extends ArrayAdapter<Msg> {
 		
 		if (msg.getType() == Msg.TYPE_RECEIVED) {
 		
+			
 			//메세지를 받았을 때 좌측 레이아웃을 보이게하고 우측 레이아웃을 넘기고 좌측 메세지를 갖고오기
+			
+			//fade off 일 때 메세지 리시브
+			if(msg.getTimer()==0)
+			{
+				viewHolder.leftFadeLayout.setVisibility(View.GONE);
+				viewHolder.rightFadeLayout.setVisibility(View.GONE);
+			
+				viewHolder.timer_right.setVisibility(View.GONE);
+				viewHolder.timer_left.setVisibility(View.GONE);
+				
 				viewHolder.leftLayout.setVisibility(View.VISIBLE);
 				viewHolder.rightLayout.setVisibility(View.GONE);
+				
 				viewHolder.leftMsg.setText(msg.getContent());
+				
+			
+			}
+			//fade on 일 때 메세지 리시브
+			else
+			{
+				viewHolder.leftLayout.setVisibility(View.GONE);
+				viewHolder.rightLayout.setVisibility(View.GONE);
+
+				viewHolder.leftFadeLayout.setVisibility(View.VISIBLE);
+				viewHolder.rightFadeLayout.setVisibility(View.GONE);
+				
+				viewHolder.timer_left.setVisibility(View.VISIBLE);
+				viewHolder.timer_right.setVisibility(View.GONE);
+				
+
+				viewHolder.timeMsg_left.setText(" "+msg.getTimer());
+				viewHolder.timeMsg_left.setTextSize(20f);
+				viewHolder.timeMsg_left.setTextColor(Color.RED);
+				
+				viewHolder.leftFadeMsg.setText(msg.getContent());
+				
+				
+			}
+			/*			원래 리시브.
+			viewHolder.leftLayout.setVisibility(View.VISIBLE);
+			viewHolder.rightLayout.setVisibility(View.GONE);
+			viewHolder.leftMsg.setText(msg.getContent());
+			*/
+			
 			
 		} 
 		
@@ -68,29 +119,43 @@ public class MsgAdapter extends ArrayAdapter<Msg> {
 			
 			//메세지를 보냈을때 때 우측 레이아웃을 보이게하고 좌측 레이아웃을 넘기고 우측 메세지를 갖고오기
 
+			//fade off 일때 메시지 센트
 			if(msg.getTimer()==0)			
 			{
 
+				viewHolder.leftFadeLayout.setVisibility(View.GONE);
 				viewHolder.rightFadeLayout.setVisibility(View.GONE);
-				viewHolder.timer.setVisibility(View.GONE);
+				
+				viewHolder.timer_right.setVisibility(View.GONE);
+				viewHolder.timer_left.setVisibility(View.GONE);
 				
 				viewHolder.rightLayout.setVisibility(View.VISIBLE);
 				viewHolder.leftLayout.setVisibility(View.GONE);
+				
 				viewHolder.rightMsg.setText(msg.getContent());
 				
 			}
+			
+			//fade on 일때 메시지 센트
 			else
 			{
 
 				viewHolder.rightLayout.setVisibility(View.GONE);
-				viewHolder.timer.setVisibility(View.VISIBLE);
+				viewHolder.leftLayout.setVisibility(View.GONE);
 				
+				
+				viewHolder.timer_right.setVisibility(View.VISIBLE);
+				viewHolder.timer_left.setVisibility(View.GONE);
+								
 
 				viewHolder.rightFadeLayout.setVisibility(View.VISIBLE);
-				viewHolder.leftLayout.setVisibility(View.GONE);
-				viewHolder.timeMsg.setText(" "+msg.getTimer());
-				viewHolder.timeMsg.setTextSize(20f);
-				viewHolder.timeMsg.setTextColor(Color.RED);
+				viewHolder.leftFadeLayout.setVisibility(View.GONE);
+
+				viewHolder.timeMsg_right.setText(" "+msg.getTimer());
+				viewHolder.timeMsg_right.setTextSize(20f);
+				viewHolder.timeMsg_right.setTextColor(Color.MAGENTA);
+				viewHolder.timeMsg_right.setPaintFlags(viewHolder.timeMsg_right.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
+				
 				viewHolder.rightFadeMsg.setText(msg.getContent());
 				
 			}
@@ -104,18 +169,29 @@ public class MsgAdapter extends ArrayAdapter<Msg> {
 	
 	class ViewHolder {
 		
-		public TextView timeMsg;
+		TextView timeMsg_right;
 
-		public LinearLayout rightFadeLayout;
+		TextView timeMsg_left;
 
-		LinearLayout timer;
+		
+		LinearLayout rightFadeLayout;
+		
+		LinearLayout leftFadeLayout;
 
-		public TextView rightFadeMsg;
+		
+		LinearLayout timer_right;
+		
+		LinearLayout timer_left;
 
+
+		TextView rightFadeMsg;
+		
+		TextView leftFadeMsg;
+
+		
 		LinearLayout leftLayout;
 		
 		LinearLayout rightLayout;
-		
 		
 		
 		TextView leftMsg;
