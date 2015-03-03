@@ -34,6 +34,48 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp" />
+        
+	  
     </LinearLayout>
+
+   <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/right_fade_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/message_right_fade"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/right_fade_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/timer"
+            android:layout_width="37dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/right_fade_layout"
+            android:background="@drawable/timer" >
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:textColor="#fff" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

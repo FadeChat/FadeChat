@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_main);				//메인엑티비티 레이아웃을 불러드림
 		adapter = new MsgAdapter(MainActivity.this, R.layout.msg_item, msgList);
 		
 		Recv receiver=new Recv();
@@ -127,7 +127,7 @@ public class MainActivity extends Activity {
 					
 
 					if(toggle.isChecked())
-						timer=10;
+						timer=9;
 
 					
 					
