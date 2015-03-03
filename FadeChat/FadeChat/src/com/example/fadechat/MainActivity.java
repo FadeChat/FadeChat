@@ -127,7 +127,7 @@ public class MainActivity extends Activity {
 					
 
 					if(toggle.isChecked())
-						timer=5;
+						timer=10;
 
 					
 					

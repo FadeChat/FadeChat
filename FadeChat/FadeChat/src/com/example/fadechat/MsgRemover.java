@@ -67,7 +67,6 @@ public class MsgRemover {
 			rMsgs.clear();
 			
 			
-			Log.v("STARTNUMBER", "처음시작은 :"+MainActivity.not_fadeNumber);
 			
 			if(MainActivity.not_fadeNumber==arr.size())
 				{ startNumber=MainActivity.not_fadeNumber;

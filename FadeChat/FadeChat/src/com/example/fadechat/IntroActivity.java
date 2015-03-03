@@ -1,5 +1,4 @@
-package com.example.fadechat
-;
+package com.example.fadechat;
 
 
 
@@ -7,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
  
  
 public class IntroActivity extends Activity {
@@ -19,15 +19,15 @@ public class IntroActivity extends Activity {
         setContentView(R.layout.intro_fadechat);	//인트로 (로고)화면을 설
         
  
-        
+
         Handler handler = new Handler();		
         handler.postDelayed(new Runnable() {
             public void run() {
-                
             	//intent 를 이용하여 현재 introActivity에서 MainActivity로 이동하는 객체생
+
             	Intent intent = new Intent(IntroActivity.this, MainActivity.class);
                 //인텐트 실행(화면전환)
-            	
+
                 startActivity(intent);
                 finish();
             }
