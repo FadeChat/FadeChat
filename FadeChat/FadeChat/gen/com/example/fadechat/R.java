@@ -25,24 +25,29 @@ public final class R {
         public static final int fadechat_intro=0x7f020000;
         public static final int ic_launcher=0x7f020001;
         public static final int message_left=0x7f020002;
-        public static final int message_right=0x7f020003;
-        public static final int message_right_fade=0x7f020004;
-        public static final int timer=0x7f020005;
-        public static final int up_icon=0x7f020006;
+        public static final int message_left_fade=0x7f020003;
+        public static final int message_right=0x7f020004;
+        public static final int message_right_fade=0x7f020005;
+        public static final int timer=0x7f020006;
+        public static final int up_icon=0x7f020007;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000c;
+        public static final int action_settings=0x7f080010;
         public static final int input_text=0x7f080001;
+        public static final int left_fade_layout=0x7f080006;
+        public static final int left_fade_msg=0x7f080007;
         public static final int left_layout=0x7f080004;
         public static final int left_msg=0x7f080005;
         public static final int msg_list_view=0x7f080000;
-        public static final int right_fade_layout=0x7f080008;
-        public static final int right_fade_msg=0x7f080009;
-        public static final int right_layout=0x7f080006;
-        public static final int right_msg=0x7f080007;
+        public static final int right_fade_layout=0x7f08000c;
+        public static final int right_fade_msg=0x7f08000d;
+        public static final int right_layout=0x7f08000a;
+        public static final int right_msg=0x7f08000b;
         public static final int send=0x7f080002;
-        public static final int time=0x7f08000b;
-        public static final int timer=0x7f08000a;
+        public static final int time_left=0x7f080009;
+        public static final int time_right=0x7f08000f;
+        public static final int timer_left=0x7f080008;
+        public static final int timer_right=0x7f08000e;
         public static final int toggleButton1=0x7f080003;
     }
     public static final class layout {

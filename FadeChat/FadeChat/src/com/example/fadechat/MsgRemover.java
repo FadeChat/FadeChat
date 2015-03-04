@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Handler;
-import android.util.Log;
 
 
 
@@ -69,9 +68,9 @@ public class MsgRemover {
 			
 			
 			if(MainActivity.not_fadeNumber==arr.size())
-				{ startNumber=MainActivity.not_fadeNumber;
+				startNumber=MainActivity.not_fadeNumber;
 				  
-				}
+				
 			
 			for(int cnt =startNumber; cnt < arr.size() ; cnt++) {
 				

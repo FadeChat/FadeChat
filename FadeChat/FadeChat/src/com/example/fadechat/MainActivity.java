@@ -22,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class MainActivity extends Activity {
@@ -56,6 +57,10 @@ public class MainActivity extends Activity {
 		
 		receiver.execute();
 		
+		//메인엑티비티 실행시 바로 fade chat service 라는 toast 설정
+		Toast.makeText(MainActivity.this, "Fade Chat Service!",
+				Toast.LENGTH_LONG).show();
+
 	
 		
 		MsgRemover remover=new MsgRemover();
