@@ -81,7 +81,10 @@ public class MsgAdapter extends ArrayAdapter<Msg> {
 				viewHolder.rightLayout.setVisibility(View.GONE);
 				
 				viewHolder.leftMsg.setText(msg.getContent());
-				
+				viewHolder.leftMsg.setPaintFlags(viewHolder.leftMsg.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
+
+				viewHolder.leftMsg.setTextColor(Color.BLACK);
+
 			
 			}
 			//fade on 일 때 메세지 리시브
@@ -100,9 +103,11 @@ public class MsgAdapter extends ArrayAdapter<Msg> {
 				viewHolder.timeMsg_left.setText(" "+msg.getTimer());
 				viewHolder.timeMsg_left.setTextSize(20f);
 				viewHolder.timeMsg_left.setTextColor(Color.RED);
-				
+				viewHolder.timeMsg_left.setPaintFlags(viewHolder.timeMsg_left.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
+
 				viewHolder.leftFadeMsg.setText(msg.getContent());
-				
+				viewHolder.leftFadeMsg.setPaintFlags(viewHolder.leftFadeMsg.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
+
 				
 			}
 			/*			원래 리시브.
@@ -132,7 +137,8 @@ public class MsgAdapter extends ArrayAdapter<Msg> {
 				viewHolder.leftLayout.setVisibility(View.GONE);
 				
 				viewHolder.rightMsg.setText(msg.getContent());
-				
+				viewHolder.rightMsg.setPaintFlags(viewHolder.rightMsg.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
+
 			}
 			
 			//fade on 일때 메시지 센트
@@ -156,7 +162,8 @@ public class MsgAdapter extends ArrayAdapter<Msg> {
 				viewHolder.timeMsg_right.setPaintFlags(viewHolder.timeMsg_right.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
 				
 				viewHolder.rightFadeMsg.setText(msg.getContent());
-				
+				viewHolder.rightFadeMsg.setPaintFlags(viewHolder.rightFadeMsg.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
+
 			}
 			
 			
