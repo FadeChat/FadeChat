@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
 	public static int not_fadeNumber=0;
 	
 
-	ToggleButton toggle;
+	ToggleButton toggle;					//togglebutton 생성
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 		receiver.execute();
 		
 		//메인엑티비티 실행시 바로 fade chat service 라는 toast 설정
-		Toast.makeText(MainActivity.this, "Fade Chat Service!",
+		Toast.makeText(MainActivity.this, "Copyright(c) 동욱,민규 All rights reserved!",
 				Toast.LENGTH_LONG).show();
 
 	

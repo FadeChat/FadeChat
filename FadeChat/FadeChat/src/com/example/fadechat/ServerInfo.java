@@ -12,7 +12,7 @@ public class ServerInfo {
 	public static final String PassWord="DM";				//Rabbitmq 의 password
 	
 
-	public static  String EXCHANGE="room2";					//Server Exchange 이름
+	public static  String EXCHANGE="room1";					//Server Exchange 이름
 
 	public static  String Queue="DwQ";						//Server Queue 이름
 	

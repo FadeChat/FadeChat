@@ -137,7 +137,7 @@ public class MsgAdapter extends ArrayAdapter<Msg> {
 				viewHolder.leftLayout.setVisibility(View.GONE);
 				
 				viewHolder.rightMsg.setText(msg.getContent());
-				viewHolder.rightMsg.setPaintFlags(viewHolder.rightMsg.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
+				viewHolder.rightMsg.setPaintFlags(viewHolder.rightMsg.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);		
 
 			}
 			
@@ -173,6 +173,9 @@ public class MsgAdapter extends ArrayAdapter<Msg> {
 		return view;
 	}
 	
+	
+	
+	// 텍스트뷰, 리니어레이아웃 에대한 클래스 (뷰홀더) 생성
 	class ViewHolder {
 		
 		TextView timeMsg_right;
