@@ -3,7 +3,6 @@ package com.example.fadechat;
 import java.util.List;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
