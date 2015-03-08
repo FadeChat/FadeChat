@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
 	
 	private MsgAdapter adapter;	//메세지 받는 변수
 	
-	private Consumer consumer=Consumer.getConsumer();
+	private Consumer consumer=Consumer.getConsumer(); // 컨슈머를 받아온다. 
 
 	public static List<Msg> msgList = new ArrayList<Msg>();	//어레이리스트로 생성한 메세지 리스트
 	
