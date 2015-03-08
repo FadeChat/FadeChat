@@ -13,7 +13,10 @@ import com.example.fadechat.Consumer.OnReceiveMessageHandler;
 import com.example.fadechat.MsgRemover.OnRemoveMessageHandler;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +38,8 @@ public class MainActivity extends Activity {
 	private Button send;		//send 버튼 
 	
 	private MsgAdapter adapter;	//메세지 받는 변수
+	
+	private Consumer consumer=Consumer.getConsumer();
 
 	public static List<Msg> msgList = new ArrayList<Msg>();	//어레이리스트로 생성한 메세지 리스트
 	
@@ -43,24 +48,25 @@ public class MainActivity extends Activity {
 
 	ToggleButton toggle;					//togglebutton 생성
 	
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	
 		
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		new Recv2().execute();
+        
 
 		setContentView(R.layout.activity_main);				//메인엑티비티 레이아웃을 불러드림
 		adapter = new MsgAdapter(MainActivity.this, R.layout.msg_item, msgList);
+
 		
-		Recv receiver=new Recv();    // 백그라운드에서 Consumer가 메세지를 받아오고 ui에 적용하기 위한 Recv 객체 
-		
-		receiver.execute();   // 실행시켜서 Consumer 객체에 있는 쓰레드 실행 
 		
 		//메인엑티비티 실행시 바로 fade chat service 라는 toast 설정
-		/*Toast.makeText(MainActivity.this, "Copyright(c) 동욱,민규 All rights reserved!",
+		Toast.makeText(MainActivity.this, "Copyright(c) 동욱,민규 All rights reserved!",
 				Toast.LENGTH_LONG).show();
-		 	*/
+
 	
 		
 		MsgRemover remover=new MsgRemover();  // fade메세지 삭제를 위해 MsgRemover객체 생성 
@@ -152,7 +158,7 @@ public class MainActivity extends Activity {
 		});
 		
 		// 메세지가 왔을때 ui에 적용하기위해 consumer객체에 interface 내부에 메세드 구현 
-		Consumer.consumer.setOnReceiveMessageHandler(new OnReceiveMessageHandler() {
+		consumer.setOnReceiveMessageHandler(new OnReceiveMessageHandler() {
 			
 			@Override
 			public void onReceiveMessage(byte[] message) {
@@ -178,7 +184,7 @@ public class MainActivity extends Activity {
 					if(!id.equals(ServerInfo.ClientId))
 					{
 					
-					Msg msg = new Msg(ServerInfo.EXCHANGE,"",word);
+					Msg msg = new Msg(ServerInfo.EXCHANGE,"",id+":"+word);
 					msg.setType(Msg.TYPE_RECEIVED);
 					msg.setTimer(timer);
 					
@@ -224,9 +230,58 @@ public class MainActivity extends Activity {
 	}
 	
 	
+	private class Recv2 extends AsyncTask<String, Void, Void> {
+
+		@Override
+		protected Void doInBackground(String... Message) {
+			try {
+
+				
+
+				// Connect to broker
+				consumer.connectServer();
+				
+				consumer.start();
+				
+				
+			
+
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+	}
+
+
+	@Override
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	
+	    switch (keyCode) {
+	
+	    case KeyEvent.KEYCODE_BACK:
+	    
+	    	consumer.dispose();
+	    	this.moveTaskToBack(true);
+            this.finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);
+            
+            return true;
+	        
+	
+	    }
+	
+	    return super.onKeyDown(keyCode, event);
+	
+	}
+
 	
 	
-	
-	
+
 }
 

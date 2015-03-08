@@ -16,6 +16,8 @@ public class Consumer {
 	private Connection mConnection;   // AMQP를 이용하여 서버에 설치되어있는 RabbitMQ에 Connection 연결 
 	private Channel mChannel;   // AMQP를 이용하여 서버에 설치되어있는 RabbitMQ에 Channel 연결 
 	
+	
+	private Consumer(){};
 
 	public Channel getChannel()   
 	{
@@ -30,6 +32,15 @@ public class Consumer {
 	 
 	
 	public static Consumer consumer=new Consumer();    // 싱글톤 디자인으로 프로그램 consumer를 한개로 만든다.
+	
+	public static Consumer getConsumer(){
+		
+		if(consumer==null)
+			consumer=new Consumer();
+		
+		return consumer;
+		
+	}
 	
 	private byte[] mLastMessage;   // 최근에 받아온 메세지 
 	
@@ -104,8 +115,12 @@ public class Consumer {
 	        	 mChannel.queueDeclare(ServerInfo.Queue, false, false, false, null);
 	     		 
 	        	 // consumer 생성 및 channel연결 
+	        	 
+	        	 if(mChannel.getDefaultConsumer()==null)
+	        	 { 
 	     		 mConsumer= new QueueingConsumer(mChannel);
 	     		 mChannel.basicConsume(ServerInfo.Queue, true, mConsumer);
+	        	 }
 	     		
 	          } catch (IOException e) {
 	              e.printStackTrace();
@@ -159,11 +174,12 @@ public class Consumer {
 	
 	
 	// 연결종료  
-	 public void Dispose()
+	 public void dispose()
 	    {
 	        this.running = false;
 
 				try {
+					
 					if (mConnection!=null)
 						mConnection.close();
 					if (mChannel != null)

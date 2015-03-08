@@ -33,8 +33,15 @@
 
         
        
-        <activity android:name="MainActivity">
+        <activity android:name="LoginActivity">
+            <intent-filter></intent-filter>
+        </activity><activity android:name="MainActivity">
+            
+            
+            
+            
         </activity>
+        
         
         
         

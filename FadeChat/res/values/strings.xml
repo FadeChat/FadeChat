@@ -7,5 +7,7 @@
     <string name="type_something_here">type_something_here</string>
     <string name="send">send</string>
     <string name="start">start</string>
+    <string name="login">login</string>
+    <string name="room">room</string>
 
 </resources>
