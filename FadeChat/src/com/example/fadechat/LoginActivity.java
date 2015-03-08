@@ -21,14 +21,19 @@ public class LoginActivity extends Activity {
         Button btnCall = (Button)findViewById(R.id.sendButton);
         btnCall.setOnClickListener(new Button.OnClickListener() {
 	
+        	//start 버튼 클릭시
 	public void onClick(View v) {
 		
 		EditText userName = (EditText) findViewById(R.id.editText1);
 		EditText roomName = (EditText) findViewById(R.id.editText2);
 		
+		//아이디 , 방정보, 큐 이름 입력받기. 
 		ServerInfo.ClientId=userName.getText().toString();
 		ServerInfo.EXCHANGE=roomName.getText().toString();
 		ServerInfo.Queue=ServerInfo.ClientId;
+		
+		
+		//클라이언트아이디 와 방이름(exchange)가 입력되지않았을시 메세지를 보냄.
 		
 		if("".equals(ServerInfo.ClientId) || "".equals(ServerInfo.EXCHANGE))
 		{
@@ -39,6 +44,7 @@ public class LoginActivity extends Activity {
 		}
 		else
 		{
+			//둘다 입력이 제대로 들어왔을시 화면전환
 			Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 			startActivity(intent);
 			
