@@ -7,7 +7,7 @@ Recently, the public awareness on personal information security has risen in res
 
 Hence we developed the application while focusing mainly on the information security.
 
-We have used MQTT-Protocol to develop the messaging system.
+We have used AMQP-Protocol to develop the messaging system.
 
 An open-source program – RABBITMQ – has been utilized to make the message sent from the sender disappear after 10 seconds from the moment it has been read depending on the user’s desired setting.
 
